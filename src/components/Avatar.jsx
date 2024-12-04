@@ -1,11 +1,8 @@
-import {useContext} from "react";
-import {TwitterContext} from "../utils/context.js";
 import {useDispatch, useSelector} from "react-redux";
-import {changeAvatar} from "../actions/userAction.js";
+import {changeAvatar, changeName} from "../actions/userAction.js";
 
 const Avatar = ({size}) => {
-    const {user, changeName} = useContext(TwitterContext);
-    const {avatar} = useSelector(state => state.user);
+    const {avatar, name} = useSelector(state => state.user);
     const dispatch = useDispatch();
 
     return (
@@ -17,10 +14,10 @@ const Avatar = ({size}) => {
             onContextMenu={e => {
                 e.preventDefault();
                 const name = prompt('Enter new name');
-                changeName(name);
+                dispatch(changeName(name));
             }}
             className={`user-avatar ${size ?? ''}`}
-            src={avatar} alt={user.name}
+            src={avatar} alt={name}
         />
     );
 };
